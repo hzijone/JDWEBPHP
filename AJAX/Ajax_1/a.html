@@ -1,0 +1,64 @@
+<html>
+<head>
+<script src="b.js"> 
+</script>
+<script type="text/javascript">
+function showUser(str)
+{
+ if (window.XMLHttpRequest)
+		  {
+		  // code for IE7+, Firefox, Chrome, Opera, Safari
+		  xmlHttp=new XMLHttpRequest();
+		  var url="c.php";	
+		   xmlHttp.open("GET",url,false);
+		   xmlHttp.send(null);
+		   
+		 //将onreadystatechange放在send之后
+		  xmlHttp.onreadystatechange=getValue(xmlHttp);
+		   
+			
+		  }
+	else
+		  {
+		  // code for IE6, IE5
+		  xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+		  var url="c.php";	
+		   xmlHttp.open("GET",url,true);
+		  xmlHttp.send(null);
+		 		  
+			xmlHttp.onreadystatechange=function()
+			  {
+				if (xmlHttp.readyState==4  && xmlHttp.status==200)
+					{
+					    xmlDoc=xmlHttp.responseXML; 
+						nodes=xmlDoc.documentElement.childNodes;
+						InputVoltage.innerHTML = nodes.item(5).text;
+						OutputVoltage.innerHTML = nodes.item(7).text;
+					}
+			  }
+		 
+		  }
+}
+</script>
+</head>
+
+
+<body onload="showUser()">
+<tr>
+     <td nowrap>输入电压</td>
+            <td height="22" nowrap>
+              <span id='InputVoltage'></span>&nbsp;V
+            </td>
+		
+</tr>
+<tr>
+	<td nowrap>输出电压</td>
+	<td nowrap>
+	  <span id='OutputVoltage'></span>&nbsp;V
+	</td>
+</tr>
+</body>
+
+
+
+</html>
